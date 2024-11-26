@@ -42,15 +42,15 @@ Esta é uma API desenvolvida em .NET com o objetivo de consumir a API pública [Ra
 
 2. Configure a string de conexão com o banco de dados PostgreSQL no arquivo appsettings.json:
    ```bash
-"ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=RandomUserDB;Username=seu_usuario;Password=sua_senha"
-}
+    "ConnectionStrings": {
+        "DefaultConnection": "Host=localhost;Database=RandomUserDB;Username=seu_usuario;Password=sua_senha"
+    }
 
 3. Execute as migrations para criar o banco de dados:
    ```bash
    dotnet ef database update
   
-4.Inicie a aplicação:
+4. Inicie a aplicação:
    ```bash
    dotnet run
 
