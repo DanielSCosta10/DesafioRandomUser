@@ -28,7 +28,7 @@ namespace WebApi.Services
 
                 if (userData != null)
                 {
-                    User user = new User(
+                    User user = new (
                         gender: userData.Gender,
                         title: userData.Name.Title,
                         firstName: userData.Name.First,
@@ -84,12 +84,12 @@ namespace WebApi.Services
             if (userResult?.Results != null && userResult.Results.Any())
             {
                 var usersData = userResult.Results.ToList();
-                List<User> users = new List<User>();
+                List<User> users = new();
                 if (usersData != null)
                 {
                     foreach(UserData userData in usersData )
                     { 
-                        User user = new User(
+                        User user = new(
                             gender: userData.Gender,
                             title: userData.Name.Title,
                             firstName: userData.Name.First,

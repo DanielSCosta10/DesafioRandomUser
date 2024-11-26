@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using WebApi.Data;
 using WebApi.Models;
 using WebApi.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 
 namespace WebApi.Controllers
@@ -121,20 +122,17 @@ namespace WebApi.Controllers
 
         [ProducesResponseType(204)]
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] JsonPatchDocument<User> patchDoc)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserDto updateUserDto)
         {
             try
             {
-                if (patchDoc == null)
-                {
-                    return BadRequest("Patch document cannot be null.");
-                }
 
-                var result = _userService.UpdateUser(id, patchDoc);
-                if (!result)
+                var user = _userService.GetUser(id);
+                if (user == null)
                 {
                     return NotFound($"User with ID {id} not found.");
                 }
+                var result = await _userService.UpdateUser(user, updateUserDto);
 
                 return NoContent();
             }
