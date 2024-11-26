@@ -1,6 +1,29 @@
 @WebApi_HostAddress = http://localhost:5073
 
-GET {{WebApi_HostAddress}}/weatherforecast/
+GET {{WebApi_HostAddress}}/api/user/AddRandomUser
 Accept: application/json
 
 ###
+
+GET {{WebApi_HostAddress}}/api/user/AddMulipleRandomUser?number=5
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/api/user/GetAllUsers
+Accept: application/json
+
+###
+
+GET {{WebApi_HostAddress}}/api/user/GetUser/57a6b72a-d803-4fb6-8ba5-26f2c6190fd2
+Accept: application/json
+
+###
+PATCH {{WebApi_HostAddress}}/api/user/UpdateUser/57a6b72a-d803-4fb6-8ba5-26f2c6190fd2
+Accept: application/json 
+Content-Type: application/json
+{
+  "FirstName": "Daniel",
+  "LastName": "Costa",
+  "State": "Pernambuco"
+}
