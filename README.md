@@ -39,23 +39,21 @@ Esta é uma API desenvolvida em .NET com o objetivo de consumir a API pública [Ra
 1. Clone o repositório:
    ```bash
    git clone https://github.com/DanielSCosta10/DesafioRandomUser.git
-   ```bash
+
 2. Configure a string de conexão com o banco de dados PostgreSQL no arquivo appsettings.json:
    ```bash
 "ConnectionStrings": {
     "DefaultConnection": "Host=localhost;Database=RandomUserDB;Username=seu_usuario;Password=sua_senha"
 }
-   ```bash
+
 3. Execute as migrations para criar o banco de dados:
    ```bash
    dotnet ef database update
-   ```bash
+  
 4.Inicie a aplicação:
    ```bash
    dotnet run
-   ```bash
 
 5. A API estará disponível no endereço:
    ```bash
    http://localhost:5073
-   ```bash
