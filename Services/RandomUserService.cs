@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using WebApi.Data;
 using WebApi.Models;
 
 namespace WebApi.Services
@@ -6,10 +8,13 @@ namespace WebApi.Services
     public class RandomUserService
     {
         private readonly HttpClient _httpClient;
+        private readonly AppDbContext _dbContext;
 
-        public RandomUserService(HttpClient httpClient)
+
+        public RandomUserService(HttpClient httpClient, AppDbContext dbContext)
         {
             _httpClient = httpClient;
+            _dbContext = dbContext;
         }
 
         public async Task<User> GetRandomUserAsync()
@@ -47,7 +52,7 @@ namespace WebApi.Services
                         phone: userData.Phone,
                         cell: userData.Cell,
                         idName: userData.Id.Name,
-                        idValue: userData.Id.Value,
+                        idValue: string.IsNullOrEmpty(userData.Id.Value) ? "" : userData.Id.Value,
                         pictureLarge: userData.Picture.Large,
                         pictureMedium: userData.Picture.Medium,
                         pictureThumbnail: userData.Picture.Thumbnail,
@@ -64,7 +69,12 @@ namespace WebApi.Services
                         timezoneDescription: userData.Location.Timezone.Description
                     );
 
-                    return user;
+                    if (user != null)
+                    {
+                        await _dbContext.Users.AddAsync(user);
+                        await _dbContext.SaveChangesAsync();
+                        return user;
+                    }
                 }
             }
 
@@ -87,8 +97,8 @@ namespace WebApi.Services
                 List<User> users = new();
                 if (usersData != null)
                 {
-                    foreach(UserData userData in usersData )
-                    { 
+                    foreach (UserData userData in usersData)
+                    {
                         User user = new(
                             gender: userData.Gender,
                             title: userData.Name.Title,
@@ -108,7 +118,7 @@ namespace WebApi.Services
                             phone: userData.Phone,
                             cell: userData.Cell,
                             idName: userData.Id.Name,
-                            idValue: userData.Id.Value,
+                            idValue: string.IsNullOrEmpty(userData.Id.Value) ? "" : userData.Id.Value,
                             pictureLarge: userData.Picture.Large,
                             pictureMedium: userData.Picture.Medium,
                             pictureThumbnail: userData.Picture.Thumbnail,
@@ -128,7 +138,13 @@ namespace WebApi.Services
                         users.Add(user);
                     }
 
-                    return users;
+                    if (users != null)
+                    {
+                        await _dbContext.Users.AddRangeAsync(users);
+                        await _dbContext.SaveChangesAsync();
+
+                        return users;
+                    }
                 }
             }
 

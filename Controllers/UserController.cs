@@ -36,9 +36,7 @@ namespace WebApi.Controllers
                 {
                     return BadRequest("Unable to obtain a valid user from the API.");
                 }
-                await _dbContext.Users.AddAsync(user);
-                await _dbContext.SaveChangesAsync();
-
+                
                 return Ok(user);
             }
             catch (HttpRequestException ex)
@@ -67,9 +65,6 @@ namespace WebApi.Controllers
                     return BadRequest("Unable to get valid API users.");
                 }
 
-                _dbContext.Users.AddRange(users);
-                await _dbContext.SaveChangesAsync();
-
                 return Ok(users);
             }
             catch (HttpRequestException ex)
@@ -78,7 +73,9 @@ namespace WebApi.Controllers
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(500, $"Error saving users to database: {ex.Message}");
+                // Logar a exceção interna
+                var innerException = ex.InnerException?.Message ?? "Sem detalhes internos";
+                return StatusCode(500, $"Error saving users to database: {ex.Message}. Detalhes internos: {innerException}");
             }
             catch (Exception ex)
             {
@@ -92,8 +89,23 @@ namespace WebApi.Controllers
         {
             try
             {
-                List<User> users = _userService.GetAllUsers();
+                List<User> users = await _userService.GetAllUsers();
                 return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
+            }
+        }
+
+        [ProducesResponseType(typeof(int), 200)]
+        [HttpGet]
+        public async Task<IActionResult> GetUserCount()
+        {
+            try
+            {
+                var userCount = await _userService.GetUserCount();
+                return Ok(userCount);
             }
             catch (Exception ex)
             {
@@ -107,7 +119,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                User user = _userService.GetUser(id);
+                User user = await _userService.GetUser(id);
                 if (user == null)
                 {
                     return NotFound($"User with ID {id} not found.");
@@ -120,21 +132,21 @@ namespace WebApi.Controllers
             }
         }
 
-        [ProducesResponseType(204)]
+        [ProducesResponseType(200)]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserDto updateUserDto)
         {
             try
             {
 
-                var user = _userService.GetUser(id);
+                var user = await _userService.GetUser(id);
                 if (user == null)
                 {
                     return NotFound($"User with ID {id} not found.");
                 }
                 var result = await _userService.UpdateUser(user, updateUserDto);
 
-                return NoContent();
+                return Ok(result);
             }
             catch (Exception ex)
             {
