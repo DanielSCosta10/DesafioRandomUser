@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciamento de Usuários</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Gerenciamento de Usuários</h1>
+    
+    <div id="totalUsers" class="total-users-container">Total de Usuários:</div>
+
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Estado</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div class="actions-container">
+        <div class="random-user-section">
+            <h2>Adicionar Usuário Aleatório</h2>
+            <button id="addRandomUser">Adicionar Usuário Aleatório</button>
+        </div>
+
+        <div class="multiple-users-section">
+            <h2>Adicionar Múltiplos Usuários Aleatórios</h2>
+            <label for="userCount">Número de Usuários:</label>
+            <input type="number" id="userCount" min="1" value="5">
+            <button id="addMultipleUsers">Adicionar Usuários</button>
+        </div>
+    </div>
+
+    <h2>Editar Usuário</h2>
+    <form id="userForm">
+        <input type="hidden" id="userId">
+        <div class="form-group">
+            <label for="firstName">Nome:</label>
+            <input type="text" id="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Sobrenome:</label>
+            <input type="text" id="lastName" required>
+        </div>
+        <div class="form-group">
+            <label for="state">Estado:</label>
+            <input type="text" id="state" required>
+        </div>
+        <button type="submit">Salvar</button>
+    </form>
+    <div id="updateMessage" class="update-message" style="display: none;"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
