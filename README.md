@@ -18,6 +18,11 @@ Esta é uma API desenvolvida em .NET com o objetivo de consumir a API pública [Ra
 - **.NET Core** - Framework principal para o desenvolvimento da API.
 - **PostgreSQL** - Banco de dados relacional para armazenamento dos dados.
 - **Entity Framework Core** - ORM para integração com o banco de dados.
+- **JavaScript** - Linguagem de programação para manipulação dinâmica da página web, realizando requisições à API e exibindo os dados de forma interativa.
+- **HTML** - Linguagem de marcação para estruturar o conteúdo da página web que exibe o relatório de usuários gerados.
+- **CSS** - Folha de estilos para melhorar a aparência da página web, tornando a interface mais agradável e responsiva.
+- **Swagger/OpenAPI** - Ferramenta utilizada para gerar e documentar a API, facilitando o teste e a interação com os endpoints da API.
+- **CORS (Cross-Origin Resource Sharing)** - Tecnologia que permite que a API seja acessada por diferentes origens (origens externas ao servidor) com segurança.
 
 ## Estrutura do Projeto
 
@@ -25,6 +30,7 @@ Esta é uma API desenvolvida em .NET com o objetivo de consumir a API pública [Ra
 - **Models**: Define a estrutura dos dados dos usuários.
 - **Services**: Camada intermediária para lógica de negócio e integração com a API externa.
 - **Data**: Configuração e migração do banco de dados PostgreSQL.
+- **WebUsers**: Página web básica construída com HTML, JavaScript e CSS, para que você possa visualizar os usuários gerados e armazenados na API.
 
 ## Como Executar
 
@@ -56,4 +62,12 @@ Esta é uma API desenvolvida em .NET com o objetivo de consumir a API pública [Ra
 
 5. A API estará disponível no endereço:
    ```bash
-   http://localhost:5073
+   http://localhost:5073/api
+
+6. A  Documentação da API estará disponível no endereço:
+    ```bash
+    http://localhost:5073/swagger/index.html
+
+7. A  Pagina Web para visualizacão do relatório dos usuários estará disponível no endereço:
+    ```bash
+    http://localhost:5073/index.html
