@@ -9,6 +9,8 @@ Esta é uma API desenvolvida em .NET com o objetivo de consumir a API pública [Ra
 - **Consumo da API Random User Generator**: Conexão com a API para obter dados de usuários aleatórios.
 - **Integração com PostgreSQL**: Armazenamento dos dados gerados em um banco de dados relacional.
 - **Endpoints para Manipulação de Dados**:
+  - Adicionar um usuário aleatório. 
+  - Adicionar vários usuários aleatórios.
   - Listar todos os usuários armazenados.
   - Editar os dados de um usuário.
 - **Relatórios de Usuários**: Geração de relatórios baseados nos dados armazenados.
